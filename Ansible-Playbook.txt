@@ -1,0 +1,268 @@
+################Playbook to create user 01####################
+---
+- hosts: webserver
+  user: admin
+  become: yes
+  connection: ssh
+  gather_facts: yes
+
+  tasks:
+    - user: name=u1
+################Playbook to create user 02########################
+---
+- name: This playbook to create user
+  hosts: webserver
+  user: admin
+  become: true
+  connection: ssh
+  gather_facts: yes
+
+  tasks:
+    - name: Creating user u2
+      user:
+        name: u2
+################playbook is to install package 01####################
+---
+- name: This playbook is to install package
+  hosts: webserver
+  user: admin
+  become: yes
+  connection: ssh
+  gather_facts: yes
+
+  tasks:
+    - name: Installing httpd package
+      yum: name=httpd state=latest
+################playbook is to install package 02#####################
+---
+- name: This playbook is to install package
+  hosts: webserver
+  user: admin
+  become: true
+  connection: ssh
+  gather_facts: yes
+
+  tasks:
+    - name: Installing httpd package
+      yum:
+        name: httpd
+        state: latest
+#######################playbook is to create empty file####################
+---
+- name: This playbook is to create empty file
+  hosts: webserver
+  user: admin
+  become: yes
+  connection: ssh
+  gather_facts: yes
+
+  tasks:
+    - name: Creating file
+      file:
+        path: /home/admin/rahul
+        state: touch
+######################playbook is to create directory#######################
+---
+- name: This playbook is to create directory
+  hosts: webserver
+  user: admin
+  become: yes
+  connection: ssh
+  gather_facts: yes
+
+  tasks:
+    - name: Creating directory
+      file:
+        path: /home/admin/dir01
+        state: directory
+
+##################playbook is to delete directory##############################
+---
+- name: This playbook is to delete directory
+  hosts: webserver
+  user: admin
+  become: yes
+  connection: ssh
+  gather_facts: yes
+
+  tasks:
+    - name: Deleting directory
+      file:
+        path: /home/admin/dir01
+        state: absent
+####################playbook is to copy file#######################################
+---
+- name: This playbook is to copy file
+  hosts: webserver
+  user: admin
+  become: yes
+  connection: ssh
+  gather_facts: yes
+
+  tasks:
+    - name: Copying file
+      copy:
+       src: /home/admin/index.html
+       dest: /var/www/html/index.html
+###################Playbook to install package and start service##########################################
+---
+- name: Playbook to install package and start service
+  hosts: webserver
+  user: admin
+  become: yes
+  connection: ssh
+  gather_facts: yes
+
+  tasks:
+    - name: Installing package
+      yum:
+        name: httpd
+        state: latest
+      
+    - name: Starting service
+      service:
+        name: httpd
+        state: started
+      ignore_errors: yes   
+###################Playbook to install package and start service with handler#############################
+---
+- name: Playbook to install package and start service
+  hosts: webserver
+  user: admin
+  become: yes
+  connection: ssh
+  gather_facts: yes
+
+  tasks:
+    - name: Installing package
+      yum:
+        name: httpd
+        state: latest
+      notify: Starting service
+
+  handlers:
+    - name: Starting service
+      service:
+        name: httpd
+        state: started
+###################Playbook to install package and start service using when condition################################
+---
+- name: Playbook to install package and start service
+  hosts: webserver
+  user: admin
+  become: yes
+  connection: ssh
+  gather_facts: yes
+
+  tasks:
+    - name: Installing httpd package
+      yum:
+        name: httpd
+        state: installed
+      when: ansible_os_family =="RedHat"
+
+    - name: Starting httpd service
+      service:
+        name: httpd
+        state: started
+      when: ansible_os_family =="RedHat"
+
+    - name: Installing apache2 package
+      apt:
+        name: apache2
+        state: present
+      when: ansible_os_family =="Debian"
+
+    - name: Starting apache2 service
+      service:
+        name: apache2
+        state: started
+      when: ansible_os_family =="Debian"
+
+##################################################################
+---
+- name: Playbook to install package and start service
+  hosts: webserver
+  user: admin
+  become: yes
+  connection: ssh
+  gather_facts: yes
+
+  tasks:
+    - name: Installing httpd package
+      yum:
+        name: httpd
+        state: installed
+      when: ansible_os_family =="RedHat"
+
+    - name: Starting httpd service
+      service:
+        name: httpd
+        state: started
+      when: ansible_os_family =="RedHat"
+
+    - name: Installing apache2 package
+      apt:
+        name: apache2
+        state: present
+      when: ansible_os_family =="Debian"
+
+    - name: Starting apache2 service
+      service:
+        name: apache2
+        state: started
+      when: ansible_os_family =="Debian"
+
+    - name: Copying file
+      copy:
+       src: /home/admin/index.html
+       dest: /var/www/html
+
+##################Playbook to install multi package###################
+---
+- name: Playbook to install multi package 
+  hosts: webserver
+  user: admin
+  become: yes
+  connection: ssh
+  gather_facts: yes
+
+  tasks:
+    - name: Installing httpd package
+      yum:
+        name: ['httpd', 'tree', 'git']
+        state: installed
+
+NOTE: SAME WAY YOU CAN CREATE USERS
+################################################
+---
+- name: Playbook to create user with variable
+  hosts: webserver
+  user: admin
+  become: yes
+  connection: ssh
+  gather_facts: yes
+
+  vars:
+   uname: raju
+
+  tasks:
+    - name: Creating user '{{uname}}'
+      user:
+        name: '{{uname}}'
+####################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

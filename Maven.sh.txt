@@ -1,0 +1,15 @@
+#!/bin/bash
+sudo su -
+yum update -y
+cd /opt
+yum install wget -y
+## Copy below link from maven download on google ##
+wget https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz
+tar -zxvf apache-maven-3.8.6-bin.tar.gz
+mv apache-maven-3.8.6 maven
+rm -rf apache-maven-3.8.6-bin.tar.gz
+## To check maven version # mvn --version ##
+## Set maven path M2_HOME=/opt/maven and M2=/opt/maven/bin in .bash_profile##
+
+## JAVA IS PREREQUISITE FOR MAVEN  ##
+

@@ -1,0 +1,13 @@
+#!/bin/bash
+sudo su -
+yum update -y
+yum install wget -y
+wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+yum install epel-release-latest-7.noarch.rpm -y
+yum update -y
+yum install git paython python-devel python-pip openssl ansible -y
+
+
+yum install paython python-pip -y
+pip install ansible
+pip install --upgrade pip

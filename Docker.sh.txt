@@ -1,0 +1,6 @@
+#!/bin/bash
+sudo su -
+yum update -y
+yum install docker -y
+systemctl start docker.service
+systemctl enable docker.service

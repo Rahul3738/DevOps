@@ -1,0 +1,6 @@
+#!/bin/bash
+sudo su -
+yum update -y
+yum install git -y
+git config --global user.name "Rahul"
+git config --global user.email "Rahulp373839@gmail.com"
