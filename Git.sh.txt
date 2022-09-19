@@ -2,5 +2,8 @@
 sudo su -
 yum update -y
 yum install git -y
+mkdir rahulgit
+cd rahulgit
+git init
 git config --global user.name "Rahul"
 git config --global user.email "Rahulp373839@gmail.com"
