@@ -1,0 +1,31 @@
+1) Launch linux EC2 with SSH and 8080 port.
+2) Update instance # yum update -y
+3) Instal Java # yum install java-1.8* -y
+4) Change directory # cd /opt
+5) Download Tomcat # wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.64/bin/apache-tomcat-9.0.64.tar.gz
+6) Unzip # tar -zxvf apache-tomcat-9.0.64.tar.gz
+7) Rename # mv apache-tomcat-9.0.64 tomcat
+8) Remove # rm -rf apache-tomcat-9.0.64.tar.gz
+9) Change directory # cd bin 
+10) Give execute permission to startup.sh # chmod +x startup.sh
+11) Give execute permission to shutdown.sh # chmod +x shutdown.sh
+12) Create link files for tomcat startup.sh # ln -s /opt/tomcat/bin/startup.sh /usr/local/bin/tomcatup
+13) Create link files for tomcat shutdown.sh # ln -s /opt/tomcat/bin/shutdown.sh /usr/local/bin/tomcatdown
+14) Change connector port no 8080 to 8090(any no of your choise) in file /opt/tomcat/conf/server.xml #vim server.xml
+15) # tomcatdown and # tomcatup
+16) Open 8090 in instance SG 
+17) Edit file context.xml and comment value class.
+18) # find / -name context.xml OR # find / -type f -name context.xml
+19) # vim /opt/tomcat/webapps/host-manager/META-INF/context.xml
+20) # vim /opt/tomcat/webapps/manager/META-INF/context.xml
+21) # tomcatdown and # tomcatup
+22) Add users with roles in file /opt/tomcat/conf/tomcat-users.xml # vim tomcat-users.xml
+ <role rolename="manager-gui"/>
+ <role rolename="manager-script"/>
+ <role rolename="manager-jmx"/>
+ <role rolename="manager-status"/>
+ <user username="admin" password="admin" roles="manager-gui, manager-script, manager-jmx, manager-status"/>
+ <user username="deployer" password="deployer" roles="manager-script"/>
+ <user username="tomcat" password="tomcat" roles="manager-gui"/>
+23) # tomcatdown and # tomcatup
+Now you can login as tomcat, deployer and admin user in manager app
